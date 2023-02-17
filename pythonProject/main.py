@@ -12,6 +12,10 @@ def main():
     #print(repeat('Yay', True))
     #stringTester()
     print(np.array([1, 4, 2, 5, 3]))
+    x1 = np.random.randint(10, size=6)
+    x3 = np.random.randint(10, size=(3, 4))
+    print(x1)
+    print(x3)
 
     colors = ['red', 'blue', 'green']
     print(colors)
