@@ -5,60 +5,65 @@ import sys
 
 
 import matplotlib as matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
 import matplotlib.pyplot as plt
-import seaborn; seaborn.set()  # set plot style
+import seaborn;
 
-#python
-#s python compiled or interperted?
-    #interperted
-    #its a slow language because its not compiled
-    #easy to work with data and very high level coding
-    #ASSEMBLY LOW LEVEL ,BYTCODE ,
-    #JAVA C# PYTHON -->VERY HIGH OUTPUT PER LINE OF CODE LANGUAGES ABSTRACT TASKS AWAY FROM DEVELOPER
-    #C++ used for perfomance intensive applications very popular for HighFrequency Trading graphics games
-    #Google got tired of coding in C++ for performantt apps and invented go as intermdiary between something like
-    #java and c++
-    #C
-    #loosely typed
-#.PY EXTENSIONS
+seaborn.set()  # set plot style
+
+
+# python
+# s python compiled or interperted?
+# interperted
+# its a slow language because its not compiled
+# easy to work with data and very high level coding
+# ASSEMBLY LOW LEVEL ,BYTCODE ,
+# JAVA C# PYTHON -->VERY HIGH OUTPUT PER LINE OF CODE LANGUAGES ABSTRACT TASKS AWAY FROM DEVELOPER
+# C++ used for perfomance intensive applications very popular for HighFrequency Trading graphics games
+# Google got tired of coding in C++ for performantt apps and invented go as intermdiary between something like
+# java and c++
+# C
+# loosely typed
+# .PY EXTENSIONS
+
 
 # Gather our code in a main() function
 def main():
-    #print('Hello there');
-    #print(repeat('Yay', True))
-   # stringTester()
- #   x1 = np.random.randint(10, size=6)  # One-dimensional array
-   # x3 = np.random.randint(10, size=(3, 4,5))
+    # print('Hello there');
+    # print(repeat('Yay', True))
+    # stringTester()
+    #   x1 = np.random.randint(10, size=6)  # One-dimensional array
+    # x3 = np.random.randint(10, size=(3, 4,5))
 
     l = np.random.random(100)
     # print(np.sum(l))
     # print(sum(l))
     # print(l)
     # print(np.min(l))
-    data = pd.read_csv('height.csv')
-    #print(data)
-    heights = np.array(data['height(cm)'])
-    #print(heights)
-    #print("Mean height:       ", heights.mean())
-    #print("Standard deviation:", heights.std())
-    #print("Minimum height:    ", heights.min())
-    #print("Maximum height:    ", heights.max())
-    #print("25th percentile:   ", np.percentile(heights, 25))
-    #print("Median:            ", np.median(heights))
-    #print("75th percentile:   ", np.percentile(heights, 75))
+    # data = pd.read_csv('height.csv')
+    # print(data)
+    # heights = np.array(data['height(cm)'])
+    # print(heights)
+    # print("Mean height:       ", heights.mean())
+    # print("Standard deviation:", heights.std())
+    # print("Minimum height:    ", heights.min())
+    # print("Maximum height:    ", heights.max())
+    # print("25th percentile:   ", np.percentile(heights, 25))
+    # print("Median:            ", np.median(heights))
+    # print("75th percentile:   ", np.percentile(heights, 75))
 
-    plt.hist(heights)
-    plt.title('Height Distribution of US Presidents')
-    plt.xlabel('height (cm)')
+    # plt.hist(heights)
+    # plt.title('Height Distribution of US Presidents')
+    # plt.xlabel('height (cm)')
+    #
+    # plt.style
+    # plt.ylabel('number');
+    # plt.show()
 
-    #plt.style
-    #plt.ylabel('number');
-    #plt.show()
-
-    #print(np.array([1, 4, 2, 5, 3]))
+    # print(np.array([1, 4, 2, 5, 3]))
 
     # a = np.array([0, 1, 2])
     # b = np.array([5, 5, 5])
@@ -66,29 +71,64 @@ def main():
     # print(a + 5)
     # M = np.ones((3, 3))
     # print(M+a)
-    a = np.arange(3)
-    b = np.arange(3)[:, np.newaxis]
-    #print(a+b)
+    # a = np.arange(3)
+    # b = np.arange(3)[:, np.newaxis]
+    # print(a+b)
 
-    x = np.linspace(0, 5, 50)
-    y = np.linspace(0, 5, 50)[:, np.newaxis]
+    # x = np.linspace(0, 5, 50)
+    # print(x)
+    # y = np.linspace(0, 5, 50)[:, np.newaxis]
+    # z = np.sin(x) ** 10 + np.cos(10 + y * x) * np.cos(x)
+    # plt.imshow(z, origin='lower', extent=[0, 5, 0, 5],
+    #        cmap='viridis')
+    # plt.colorbar();
+    # plt.show()
+    # x = np.array([2, 1, 4, 3, 5])
+    # np.sort(x)
+    # #print( np.sort(x))
+    # rand = np.random.RandomState(42)
+    # print(rand)
+    # X = rand.randint(0, 10, (4, 6))
+    # print(np.sort(X, axis=1))
+    #
+    # data = pd.Series([0.25, 0.5, 0.75, 1.0])
+    # print(data)
 
-    z = np.sin(x) ** 10 + np.cos(10 + y * x) * np.cos(x)
-    plt.imshow(z, origin='lower', extent=[0, 5, 0, 5], cmap='viridis')
-    plt.colorbar
-    plt.show()
-
-    data = pd.Series([0.25, 0.5, 0.75, 1.0], index=['apple', 'banana', 'carrot', 'dragon fruit'])
-    #print(data)
-
+    # data = pd.Series([0.25, 0.5, 0.75, 1.0], index=['apple', 'banana', 'carrot', 'test'])
+    # population_dict = {'California': 38332521,
+    #                    'Texas': 26448193,
+    #                    'New York': 19651127,
+    #                    'Florida': 19552860,
+    #                    'Illinois': 12882135}
+    #
+    # population = pd.Series(population_dict)
+    # # population['California']
+    # print(   population['California'])
+    # print(data['apple'])
     population_dict = {'California': 38332521,
                        'Texas': 26448193,
                        'New York': 19651127,
                        'Florida': 19552860,
                        'Illinois': 12882135}
     population = pd.Series(population_dict)
-    #print(population['California'])
-    print(population['California':'New York'])
+    area_dict = {'California': 423967, 'Texas': 695662, 'New York': 141297,
+                 'Florida': 170312, 'Illinois': 149995, 'Nevada': 149996}
+    area = pd.Series(area_dict)
+
+    states = pd.DataFrame({'population': population,
+                       'area': area})
+    # print(states['population'])
+
+    rng = np.random.RandomState(42)
+    ser = pd.Series(rng.randint(0, 10, 4))
+    print(ser)
+    print(np.exp(ser))
+
+    df = pd.DataFrame(rng.randint(0, 10, (3, 4)), columns=['A', 'B', 'C', 'D'])
+    print(df)
+
+    print(np.sin(df * np.pi / 4))
+
 
 # Defines a "repeat" function that takes 2 arguments.
 def repeat(s, exclaim):
@@ -103,12 +143,13 @@ def repeat(s, exclaim):
     #     result = result + '!!!'
     # return result
 
+
 def stringTester():
     s = "   hi hi  "
     print(s)
     print(s[0])
     print(len(s))
-    print(s+" there")
+    print(s + " there")
     print(s.upper())
 
     print(s.strip())
@@ -128,7 +169,7 @@ def stringTester():
             print('lemonade')
         else:
             print('water')
-#{1000] --> will increase the size of that list
+    # {1000] --> will increase the size of that list
     colors = ['red', 'blue', 'green']
     print(colors[0])  ## red
     print(colors[2])  ## green
@@ -139,37 +180,41 @@ def stringTester():
     # for square in squares:
     #  sum += square
     #  # x = lambda a: a + 10
-     # x = lambda a, b: a * b
-     # print(x(5, 6))
-     # print(x(5))
+    # x = lambda a, b: a * b
+    # print(x(5, 6))
+    # print(x(5))
     #
     # for i in range(100):
     #     print(i)
 
-        ## Access every 3rd element in a list
+    ## Access every 3rd element in a list
     i = 0
     # while i < len(squares):
     #     print(squares[i])
     #     i = i + 3
 
-    squares.insert(2,35)
+    squares.insert(2, 35)
     for square in squares:
-     print(square)
+        print(square)
 
     print(sum)  ## 30
 
-    def repeat(s, exclaim,randomLambdaFunction):
+
+    def repeat(s, exclaim, randomLambdaFunction):
         """
         Returns the string 's' repeated 3 times.
         If exclaim is true, add exclamation marks.
         """
 
-        #stringTester()
+        # stringTester()
         # result = s + s + s # can also use "s * 3" which is faster (Why?)
         # if exclaim:
         #     result = result + '!!!'
         # return result
-#list similar to an array but its not neceserally an array undernath
+
+
+# list similar to an array but its not neceserally an array undernath
+
 
 # s.lower(), s.upper() -- returns the lowercase or uppercase version of the string
 # s.strip() -- returns a string with whitespace removed from the start and end
@@ -184,13 +229,3 @@ def stringTester():
 # the program.
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
-
-
