@@ -1,231 +1,209 @@
-#!/usr/bin/env python
+# Importing necessary libraries
+from gettext import install
 
-# import modules used here -- sys is a very standard one
-import sys
-
-
-import matplotlib as matplotlib
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import warnings
 
-import matplotlib.pyplot as plt
-import seaborn;
+import pip
 
-seaborn.set()  # set plot style
+# Ignore all warnings
+warnings.filterwarnings('ignore')
 
+# Reading the CSV file into a DataFrame
+df = pd.read_csv('movies.csv')
+df.info()
 
-# python
-# s python compiled or interperted?
-# interperted
-# its a slow language because its not compiled
-# easy to work with data and very high level coding
-# ASSEMBLY LOW LEVEL ,BYTCODE ,
-# JAVA C# PYTHON -->VERY HIGH OUTPUT PER LINE OF CODE LANGUAGES ABSTRACT TASKS AWAY FROM DEVELOPER
-# C++ used for perfomance intensive applications very popular for HighFrequency Trading graphics games
-# Google got tired of coding in C++ for performantt apps and invented go as intermdiary between something like
-# java and c++
-# C
-# loosely typed
-# .PY EXTENSIONS
+# Printing the first few rows of the DataFrame
+print(df.head())
 
+# Calculating the percentage of missing values in each column
+missing_percent = (df.isnull().sum() / len(df)) * 100
 
-# Gather our code in a main() function
-def main():
-    # print('Hello there');
-    # print(repeat('Yay', True))
-    # stringTester()
-    #   x1 = np.random.randint(10, size=6)  # One-dimensional array
-    # x3 = np.random.randint(10, size=(3, 4,5))
+# Printing the number of null values in each column
+print(missing_percent)
 
-    l = np.random.random(100)
-    # print(np.sum(l))
-    # print(sum(l))
-    # print(l)
-    # print(np.min(l))
-    # data = pd.read_csv('height.csv')
-    # print(data)
-    # heights = np.array(data['height(cm)'])
-    # print(heights)
-    # print("Mean height:       ", heights.mean())
-    # print("Standard deviation:", heights.std())
-    # print("Minimum height:    ", heights.min())
-    # print("Maximum height:    ", heights.max())
-    # print("25th percentile:   ", np.percentile(heights, 25))
-    # print("Median:            ", np.median(heights))
-    # print("75th percentile:   ", np.percentile(heights, 75))
+# Dropping unnecessary columns from the DataFrame
+df = df.drop(['movie_id', 'link', 'cast_id', 'writer_id', 'review_id', 'director_id', 'user_id'], axis=1)
+print(df.head())
 
-    # plt.hist(heights)
-    # plt.title('Height Distribution of US Presidents')
-    # plt.xlabel('height (cm)')
-    #
-    # plt.style
-    # plt.ylabel('number');
-    # plt.show()
+# Removing commas and converting 'imbd_votes' column values to integers
+df['imbd_votes'] = df['imbd_votes'].apply(lambda x: int(x.replace(",", "")))
+print(df.head())
+df.info()
 
-    # print(np.array([1, 4, 2, 5, 3]))
+# Printing the number of unique values in the 'certificate' column
+print(df['certificate'].nunique())
 
-    # a = np.array([0, 1, 2])
-    # b = np.array([5, 5, 5])
-    # c = np.array([5, 5, 5, 22, 20, 30])
-    # print(a + 5)
-    # M = np.ones((3, 3))
-    # print(M+a)
-    # a = np.arange(3)
-    # b = np.arange(3)[:, np.newaxis]
-    # print(a+b)
+# Printing the unique values in the 'certificate' column
+print(df['certificate'].unique())
 
-    # x = np.linspace(0, 5, 50)
-    # print(x)
-    # y = np.linspace(0, 5, 50)[:, np.newaxis]
-    # z = np.sin(x) ** 10 + np.cos(10 + y * x) * np.cos(x)
-    # plt.imshow(z, origin='lower', extent=[0, 5, 0, 5],
-    #        cmap='viridis')
-    # plt.colorbar();
-    # plt.show()
-    # x = np.array([2, 1, 4, 3, 5])
-    # np.sort(x)
-    # #print( np.sort(x))
-    # rand = np.random.RandomState(42)
-    # print(rand)
-    # X = rand.randint(0, 10, (4, 6))
-    # print(np.sort(X, axis=1))
-    #
-    # data = pd.Series([0.25, 0.5, 0.75, 1.0])
-    # print(data)
+# Installing and importing the 'plotly' library
 
-    # data = pd.Series([0.25, 0.5, 0.75, 1.0], index=['apple', 'banana', 'carrot', 'test'])
-    # population_dict = {'California': 38332521,
-    #                    'Texas': 26448193,
-    #                    'New York': 19651127,
-    #                    'Florida': 19552860,
-    #                    'Illinois': 12882135}
-    #
-    # population = pd.Series(population_dict)
-    # # population['California']
-    # print(   population['California'])
-    # print(data['apple'])
-    population_dict = {'California': 38332521,
-                       'Texas': 26448193,
-                       'New York': 19651127,
-                       'Florida': 19552860,
-                       'Illinois': 12882135}
-    population = pd.Series(population_dict)
-    area_dict = {'California': 423967, 'Texas': 695662, 'New York': 141297,
-                 'Florida': 170312, 'Illinois': 149995, 'Nevada': 149996}
-    area = pd.Series(area_dict)
+import plotly.express as px
 
-    states = pd.DataFrame({'population': population,
-                       'area': area})
-    # print(states['population'])
+# Creating an interactive scatter plot using plotly
+fig = px.scatter(df, x='imbd_rating', y='certificate', color='certificate',
+                 hover_name='title', title='IMDB Rating vs. Certificate')
+fig.update_layout(
+    xaxis_title='IMDB Rating',
+    yaxis_title='Certificate',
+    legend_title='Certificate'
+)
+fig.show()
 
-    rng = np.random.RandomState(42)
-    ser = pd.Series(rng.randint(0, 10, 4))
-    print(ser)
-    print(np.exp(ser))
+# Performing one-hot encoding on the 'certificate' column
+df = pd.get_dummies(df, columns=['certificate'])
+df.info()
 
-    df = pd.DataFrame(rng.randint(0, 10, (3, 4)), columns=['A', 'B', 'C', 'D'])
-    print(df)
+# Function to convert duration to minutes
+def convert_duration(duration_str):
+    if 'h ' in duration_str:
+        hours, minutes = duration_str.split('h ')
+        hours = int(hours)
+        minutes = int(minutes[:-1])
+    else:
+        hours = 0
+        minutes = int(duration_str[:-1])
+    total_minutes = hours * 60 + minutes
+    return total_minutes
 
-    print(np.sin(df * np.pi / 4))
+# Applying the duration conversion function to the 'duration' column
+df['duration'] = df['duration'].apply(convert_duration)
+df.info()
 
+# Creating an interactive scatter plot using plotly
+fig = px.scatter(df, x='imbd_rating', y='genre', color='genre',
+                 hover_name='title', title='IMDB Rating vs. Genre')
+fig.update_layout(
+    xaxis_title='IMDB Rating',
+    yaxis_title='Genre',
+    legend_title='Genre'
+)
+fig.show()
 
-# Defines a "repeat" function that takes 2 arguments.
-def repeat(s, exclaim):
-    """
-    Returns the string 's' repeated 3 times.
-    If exclaim is true, add exclamation marks.
-    """
+# Creating an interactive scatter plot using plotly
+fig = px.scatter(df, x='imbd_rating', y='imbd_votes', color='genre',
+                 hover_name='director_name', title='IMDb Rating vs. IMDb Votes for All genre')
+fig.update_layout(
+    xaxis_title='IMDb Rating',
+    yaxis_title='IMDb Votes',
+    legend_title='genre'
+)
+fig.show()
 
-    stringTester()
-    # result = s + s + s # can also use "s * 3" which is faster (Why?)
-    # if exclaim:
-    #     result = result + '!!!'
-    # return result
+# Printing the number of unique values in the 'genre' column
+print(df['genre'].nunique())
 
+# Printing the unique values in the 'genre' column
+print(df['genre'].unique())
 
-def stringTester():
-    s = "   hi hi  "
-    print(s)
-    print(s[0])
-    print(len(s))
-    print(s + " there")
-    print(s.upper())
+# Importing MultiLabelBinarizer from sklearn.preprocessing
+from sklearn.preprocessing import MultiLabelBinarizer
 
-    print(s.strip())
-    print(s.find('hi'))
-    print(s.replace('hi', 'bye'))
-    s1 = "TRIGGER_NOTIFICATION_SERVICE-uat"
+# Creating a MultiLabelBinarizer object
+mlb = MultiLabelBinarizer()
 
-    print(s1.split('-')[0])
-    time_hour = 23
-    mood = "notthirsty"
+# Applying MultiLabelBinarizer on the 'genre' column
+genres = df['genre'].apply(lambda x: x.split(','))
+genre_binary = mlb.fit_transform(genres)
 
-    if time_hour >= 0 and time_hour <= 24:
-        print('Suggesting a drink option...')
-        if mood == 'sleepy' and time_hour < 10:
-            print('coffee')
-        elif mood == 'thirsty' or time_hour < 2:
-            print('lemonade')
-        else:
-            print('water')
-    # {1000] --> will increase the size of that list
-    colors = ['red', 'blue', 'green']
-    print(colors[0])  ## red
-    print(colors[2])  ## green
-    print(len(colors))  ## 3
+# Creating a new dataframe with the binary variables
+genre_df = pd.DataFrame(genre_binary, columns=mlb.classes_)
 
-    squares = [1, 4, 9, 16]
-    sum = 0
-    # for square in squares:
-    #  sum += square
-    #  # x = lambda a: a + 10
-    # x = lambda a, b: a * b
-    # print(x(5, 6))
-    # print(x(5))
-    #
-    # for i in range(100):
-    #     print(i)
+# Concatenating the genre_df with the original dataframe
+df = pd.concat([df, genre_df], axis=1)
+df.head()
 
-    ## Access every 3rd element in a list
-    i = 0
-    # while i < len(squares):
-    #     print(squares[i])
-    #     i = i + 3
+# Dropping the 'genre' column from the DataFrame
+df = df.drop('genre', axis=1)
+df.info()
 
-    squares.insert(2, 35)
-    for square in squares:
-        print(square)
+# Calculating the correlation matrix
+corr_matrix = df.corr()
+print(corr_matrix)
 
-    print(sum)  ## 30
+# Creating a heatmap of the correlation matrix using plotly
+import plotly.express as px
+fig = px.imshow(corr_matrix, color_continuous_scale='RdBu', zmin=-1, zmax=1)
+fig.update_layout(
+    xaxis=dict(title='Features'),
+    yaxis=dict(title='Features'),
+    title='Correlation Matrix Heatmap'
+)
+fig.show()
 
+# Removing duplicated columns from the DataFrame
+df = df.loc[:, ~df.columns.duplicated()]
 
-    def repeat(s, exclaim, randomLambdaFunction):
-        """
-        Returns the string 's' repeated 3 times.
-        If exclaim is true, add exclamation marks.
-        """
+# Calculating correlation of each column with the 'rank' column
+rank_corr = df.corrwith(df['rank'])
+print(rank_corr)
 
-        # stringTester()
-        # result = s + s + s # can also use "s * 3" which is faster (Why?)
-        # if exclaim:
-        #     result = result + '!!!'
-        # return result
+# Grouping the data by year and selecting the top 5 movies with the most imbd_votes
+yearly_votes = df.groupby('year').apply(lambda x: x.nlargest(5, 'imbd_votes')).reset_index(drop=True)
 
+# Creating an interactive scatter plot of the data using plotly
+fig = px.scatter(yearly_votes, x='year', y='imbd_votes', hover_name='title',
+                 hover_data={'imbd_rating': True, 'director_name': True},
+                 labels={'year':'Year', 'imbd_votes':'Total IMBD Votes'},
+                 title='Most Rated Movies by Year')
+fig.show()
 
-# list similar to an array but its not neceserally an array undernath
+# Creating an interactive scatter plot of the data using plotly
+fig = px.scatter(df, x='imbd_votes', y='imbd_rating', hover_name='title',
+                 hover_data={'year': True, 'director_name': True},
+                 labels={'imbd_votes':'Total IMBD Votes', 'imbd_rating': 'IMBD Rating'},
+                 title='IMBD Votes vs. IMBD Rating')
+fig.show()
 
+# Creating an interactive scatter plot of the data using plotly
+fig = px.scatter(df, x='imbd_rating', y='duration', hover_name='title',
+                 hover_data={'year': True, 'imbd_votes': True},
+                 labels={'imbd_rating':'IMBD Rating', 'duration':'Duration (minutes)'},
+                 title='IMBD Rating vs. Movie Duration')
+fig.show()
 
-# s.lower(), s.upper() -- returns the lowercase or uppercase version of the string
-# s.strip() -- returns a string with whitespace removed from the start and end
-# s.isalpha()/s.isdigit()/s.isspace()... -- tests if all the string chars are in the various character classes
-# s.startswith('other'), s.endswith('other') -- tests if the string starts or ends with the given other string
-# s.find('other') -- searches for the given other string (not a regular expression) within s, and returns the first index where it begins or -1 if not found
-# s.replace('old', 'new') -- returns a string where all occurrences of 'old' have been replaced by 'new'
-# s.split('delim') -- returns a list of substrings separated by the given delimiter. The delimiter is not a regular expression, it's just text. 'aaa,bbb,ccc'.split(',') -> ['aaa', 'bbb', 'ccc']. As a convenient special case s.split() (with no arguments) splits on all whitespace chars.
-# s.join(list) -- opposite of split(), joins the elements in the given list together using the string as the delimiter. e.g. '---'.join(['aaa', 'bbb', 'ccc']) -> aaa---bbb---ccc
+# Creating an interactive scatter plot of the data using plotly
+fig = px.scatter(df, x='imbd_rating', y='director_name',
+                 hover_name='title', title='IMDb Rating vs. Director Name')
+fig.update_layout(
+    xaxis_title='IMDb Rating',
+    yaxis_title='Director Name',
+    legend_title='Director Name'
+)
+fig.show()
 
-# Standard boilerplate to call the main() function to begin
-# the program.
-if __name__ == '__main__':
-    main()
+# Finding the director with the highest average IMDb rating and sum of IMDb votes
+director = df.groupby('director_name').agg({'imbd_rating': 'mean', 'imbd_votes': 'sum'}).sort_values(['imbd_rating', 'imbd_votes'], ascending=False).head(1).index[0]
+
+# Creating an interactive scatter plot of the data using plotly
+fig = px.scatter(df, x='imbd_rating', y='imbd_votes',
+                 hover_name='title', title=f'IMDb Rating vs. IMDb Votes for all Director')
+fig.update_layout(
+    xaxis_title='IMDb Rating',
+    yaxis_title='IMDb Votes',
+    legend_title='Title'
+)
+fig.show()
+
+# Creating an interactive scatter plot of the data using plotly
+fig = px.scatter(df, x='imbd_rating', y='imbd_votes', color='director_name',
+                 hover_name='director_name', title='IMDb Rating vs. IMDb Votes for All Directors')
+fig.update_layout(
+    xaxis_title='IMDb Rating',
+    yaxis_title='IMDb Votes',
+    legend_title='Director'
+)
+fig.show()
+
+# Creating an interactive scatter plot of the data using plotly
+fig = px.scatter(df, x='imbd_rating', y='imbd_votes', color='writer_name',
+                 hover_name='director_name', title='IMDb Rating vs. IMDb Votes for All Writers')
+fig.update_layout(
+    xaxis_title='IMDb Rating',
+    yaxis_title='IMDb Votes',
+    legend_title='writer_name'
+)
+fig.show()
+
